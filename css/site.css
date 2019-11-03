@@ -1,0 +1,29 @@
+#config-btn-calendar{
+position: absolute;
+right: 30px;
+top:10px;
+
+opacity: 0;
+-webkit-transition-duration: 1000ms;
+transition-duration: 1000mx;
+color:grey;
+
+
+}
+
+#row-calendario:hover > #config-btn-calendar{
+    opacity: 1;
+    display: block;
+    cursor: pointer; 
+ 
+
+}
+
+#btn-config{
+    color:black;
+    cursor: pointer;
+}
+
+.checked{
+    background: rgba(0, 0, 0, 0.2);
+}

@@ -490,6 +490,7 @@
 			
 			/* Click on date */
 			cells.click(function(e) {
+				
 				e.stopPropagation();
 				var date = _this._getDate($(this));
 				_this._triggerEvent('clickDay', {
@@ -522,7 +523,9 @@
 			
 			/* Range selection */
 			if(this.options.enableRangeSelection) {
+
 				cells.mousedown(function (e) {
+					
 					if(e.which == 1) {
 						var currentDate = _this._getDate($(this));
 					
@@ -583,6 +586,8 @@
 				$(window).mouseup(function (e) {
 					if (_this._mouseDown) {
 						_this._mouseDown = false;
+						elementosSeleccionados=$("#calendar  .range");
+						
 						_this._refreshRange();
 
 						var minDate = _this._rangeStart < _this._rangeEnd ? _this._rangeStart : _this._rangeEnd;
@@ -591,7 +596,9 @@
 						_this._triggerEvent('selectRange', { 
 							startDate: minDate, 
 							endDate: maxDate,
-							events: _this.getEventsOnRange(minDate, new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate() + 1))
+							events: _this.getEventsOnRange(minDate, new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate() + 1)),
+							evento:e,
+							seleccionados:elementosSeleccionados
 						});
 					}
 				});

@@ -13,13 +13,16 @@
         <!-- <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-year-calendar/1.1.1/css/bootstrap-year-calendar.css"> -->
         <link  rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
         <link  type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link  rel="stylesheet"  type="text/css" href="./css/site.css">
         
     </head>
     <body>
         <!--CALENDARIO-->
-        <div class="row">
-           <div class="col-lg-10">
+        <div class="row" id="row-calendario">
+                <div  id="config-btn-calendar"><span class="glyphicon glyphicon-cog" ></span></div>
                 <div id="calendar" class="calendar"></div>
+                <div class="col-lg-10">
+                    
            </div>
            <div class="col-lg-2"></div>
         </div>
@@ -67,6 +70,34 @@
                 </div>
             </div>
         </div>
+        <!--MODAL-->
+        <div class="modal modal-fade" id="config-modal" style="display: none;">
+            
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">
+                                    Configuración
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                            <form class="form-horizontal">
+                                <label for="idioma-calendario" class="label-form">Idioma</label>
+                                <select name="idioma-calendario" id="idioma-calendario" class="form-control">
+                                    <option value="es">Castellano</option>
+                                    <option value="eu">Euskera</option>
+                                </select>
+                                
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>  
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         <!--SCRIPTS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -75,6 +106,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
         <script src="./js/bootstrap-year-calendar.js"></script>
         <script src="./js/bootstrap-year-calendar.es.js"></script>
+        <script src="./js/bootstrap-year-calendar.eu.js"></script>
         <script src="./js/bootstrap-year-calendar-extension.js"></script>
         <script src="./app.js"></script>
         
