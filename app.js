@@ -1,4 +1,92 @@
 
+
+var nuevosElementos = [];
+
+
+function Dibujar(){
+    $("#nuevas-fechas").empty();
+    var lista = $(document.createElement('ul'));
+    for(var i= 0; i<nuevosElementos.length; i++){
+        var el = (document.createElement('li'));
+        $(el).data('datos',nuevosElementos[i]);
+        $(el).html(nuevosElementos[i].fecha.toLocaleDateString('es-ES'));
+        $(el).append('<span class="eliminar glyphicon glyphicon-minus" ></span>')
+        lista.append(el);
+    }
+    $('#nuevas-fechas').append(lista);
+}
+
+function PonerElemento(fecha,target){
+    
+    nuevosElementos.push({fecha:fecha,tipo:1,target:target});
+}
+
+function QuitarElemento(fecha){
+   
+    for(var i= 0; i<nuevosElementos.length; i++){
+        
+        if(nuevosElementos[i].fecha.getTime() == fecha.getTime()){
+            
+            $(nuevosElementos[i].target).removeClass('checked');
+            nuevosElementos.splice(i,1);
+            Dibujar();
+            break;
+        }
+    }
+
+}
+
+function seleccionarChequeados(event){
+
+var elementos = event.seleccionados;
+
+var num = elementos.length;
+var MultiSeleccion = num > 1;
+console.log(MultiSeleccion);
+var fechaActual = new Date(event.startDate.getTime());
+for(var i = 0 ; i<num; i++){
+    
+
+    var finDeSemana = (fechaActual.getDay() == 6 || fechaActual.getDay() == 0);
+    var estaChequeado = $(elementos[i]).hasClass("checked");
+
+    if(estaChequeado && !MultiSeleccion && !finDeSemana){
+        $(elementos[i]).removeClass('checked');
+        QuitarElemento(fechaActual);
+
+    }
+    else{
+        if(!finDeSemana && !estaChequeado){
+            $(elementos[i]).addClass('checked');
+            PonerElemento(fechaActual,$(elementos[i]));
+        }
+        
+        
+    }
+    fechaActual =  new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + 1);
+
+    
+}
+console.log(nuevosElementos);Dibujar();
+
+        // var fechaActual = new Date(event.startDate.getTime());
+        
+        // var fecha =  new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate());
+        
+        // var ultimaFecha = new Date(event.endDate.getTime());
+        // var fechaFin = new Date(ultimaFecha.getFullYear(), ultimaFecha.getMonth(), ultimaFecha.getDate());
+        
+        // while(fecha<=fechaFin){
+            
+        //     if(fecha.getDay() != 0 && fecha.getDay() != 6 ){
+        //         console.log(fecha);
+        //     }
+            
+        //     fechaActual = new Date(fecha.getTime());
+        //      fecha =  new Date(fechaActual.getFullYear(), fechaActual.getMonth(), fechaActual.getDate() + 1);
+        // }
+
+}
 function editEvent(event) {
   
     // $('#event-modal input[name="event-index"]').val(event ? event.id : '');
@@ -9,15 +97,8 @@ function editEvent(event) {
     // $('#event-modal').modal();
     
     
-
-    event.seleccionados.each(index => {
-        var ele = $(event.seleccionados[index]);
-        if(ele.hasClass('checked')){
-            ele.removeClass('checked');
-        }else{
-            ele.addClass('checked');
-        }
-    });
+   
+    seleccionarChequeados(event);
    
 
     
@@ -112,6 +193,7 @@ $(function() {
     console.log(language);
     $('#calendar').calendar({
         enableContextMenu: true,
+        disabledWeekDays : [0,6],
         enableRangeSelection: true,
         language: language,
         contextMenuItems:[
